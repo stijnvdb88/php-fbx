@@ -8,6 +8,12 @@ $fbx = new FBX($path_to_binary_fbx_in, $path_to_fbx_out);
 Note: you must supply the fully qualified paths for both parameters. The FBX will be exported depending on the extension of the second parameter.
 If the extension is ".fbx", the binary FBX will be converted to ascii. Other valid options are .dae, .obj and .dxf (see FBX SDK documentation for more info).
 
+## Compatibility (Linux + Windows)
+* php 5.6.4 and higher
+* php 7.1, 7.2
+* php 8.1, 8.2
+
+
 ## Build instructions (Linux)
 * Download the Autodesk FBX SDK: https://www.autodesk.com/developer-network/platform-technologies/fbx-sdk-2020-3-1
 * Copy libfbxsdk.dylib to `/usr/local/lib`
