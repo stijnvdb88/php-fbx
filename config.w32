@@ -1,0 +1,38 @@
+// vim:ft=javascript
+
+ARG_WITH("fbx", "FBX support", "no");
+
+if (PHP_FBX != "no") {
+    WARNING("fdf");
+    if (CHECK_LIB("libfbxsdk.lib", "fbx", PHP_FBX))
+    {
+		/* check headers. */
+		if (CHECK_HEADER_ADD_INCLUDE("fbxsdk.h", "CFLAGS_FBX", PHP_FBX + "\\include" )) 
+		{
+            var fbxphpPath = ".\\ext\\fbx_php";
+
+            EXTENSION("fbx", "fbx.cc php_fbx.cc common.cxx", PHP_FBX_SHARED);
+            AC_DEFINE("HAVE_FBX", 1, "Define if fbx extension is enabled");
+            ADD_FLAG("CFLAGS_FBX", "/DOS_NT");
+            ADD_FLAG("CFLAGS_FBX", "/DCASE_INSENSITIVE");
+			ADD_FLAG("LDFLAGS_FBX", "/NODEFAULTLIB:msvcrtd");
+
+
+            var cl = PATH_PROG('cl', null, 'FBXPHP_CL');
+            if (!cl) {
+                ERROR("MS C++ compiler is required");
+            }
+            if (probe_binary( cl, 64)) {
+                var ID_OS = "NTX64";
+            } else {
+                var ID_OS = "NTX86";
+            }
+		} else {
+			WARNING("FBX support not enabled; headers not found");
+		}
+    }
+    else
+    {
+        WARNING(PHP_FBX);
+    }
+}
